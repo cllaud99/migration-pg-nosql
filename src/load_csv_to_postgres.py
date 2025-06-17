@@ -1,9 +1,11 @@
-import pandas as pd
-from sqlalchemy import create_engine
-from dotenv import load_dotenv
 import os
 
+import pandas as pd
+from dotenv import load_dotenv
+from sqlalchemy import create_engine
+
 load_dotenv()
+
 
 def get_postgres_engine() -> object:
     """
@@ -21,6 +23,7 @@ def get_postgres_engine() -> object:
     engine_url = f"postgresql://{user}:{password}@{host}:{port}/{db}"
     return create_engine(engine_url)
 
+
 def load_csv_to_postgres(file_path: str) -> None:
     """
     Carrega dados de um arquivo CSV para a tabela indicadores_municipais no PostgreSQL.
@@ -28,7 +31,7 @@ def load_csv_to_postgres(file_path: str) -> None:
     Args:
         file_path (str): Caminho para o arquivo CSV.
     """
-    df = pd.read_csv(file_path, delimiter=';', decimal=',', encoding='latin1')
+    df = pd.read_csv(file_path, delimiter=";", decimal=",", encoding="latin1")
 
     df.columns = [
         "ano",
@@ -37,24 +40,24 @@ def load_csv_to_postgres(file_path: str) -> None:
         "cod_municipio",
         "nome_municipio",
         "expectativa_vida",
-        "mortalidade_infantil"
+        "mortalidade_infantil",
     ]
 
     df.dropna(subset=["cod_municipio"], inplace=True)
 
-    df["expectativa_vida"] = pd.to_numeric(df["expectativa_vida"], errors='coerce')
-    df["mortalidade_infantil"] = pd.to_numeric(df["mortalidade_infantil"], errors='coerce')
+    df["expectativa_vida"] = pd.to_numeric(df["expectativa_vida"], errors="coerce")
+    df["mortalidade_infantil"] = pd.to_numeric(
+        df["mortalidade_infantil"], errors="coerce"
+    )
 
     engine = get_postgres_engine()
 
     df.to_sql(
-        name="indicadores_municipais",
-        con=engine,
-        if_exists="append",
-        index=False
+        name="indicadores_municipais", con=engine, if_exists="append", index=False
     )
 
     print("✅ Dados carregados com sucesso para o PostgreSQL!")
+
 
 if __name__ == "__main__":
     load_csv_to_postgres("data/IDH2010.csv")

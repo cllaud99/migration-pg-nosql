@@ -1,8 +1,9 @@
 import os
+
 import pandas as pd
-from sqlalchemy import create_engine
-from pymongo import MongoClient
 from dotenv import load_dotenv
+from pymongo import MongoClient
+from sqlalchemy import create_engine
 
 load_dotenv()
 
@@ -51,9 +52,7 @@ def migrate_postgres_to_mongodb() -> None:
     db = client["indicadores_db"]
     collection = db["indicadores_municipais"]
 
-
     collection.drop()
-
 
     records = df.to_dict(orient="records")
     collection.insert_many(records)

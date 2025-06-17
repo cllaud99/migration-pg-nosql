@@ -10,4 +10,17 @@ dependencies = [
     "pymongo>=4.13.2",
     "python-dotenv>=1.1.0",
     "sqlalchemy>=2.0.41",
+    "taskipy>=1.14.1",
 ]
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "isort>=6.0.1",
+]
+
+[tool.taskipy.tasks]
+format = """
+isort .
+black .
+"""

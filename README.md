@@ -1,6 +1,6 @@
 # Projeto ETL PostgreSQL → MongoDB
 
-Este projeto tem como objetivo demonstrar o fluxo de dados entre bancos relacionais e NoSQL, utilizando como exemplo o carregamento de dados de um arquivo Excel para o PostgreSQL e a migração desses dados para o MongoDB.
+Este projeto tem como objetivo demonstrar o fluxo de dados entre bancos relacionais e NoSQL, utilizando como exemplo o carregamento de dados de um arquivo csv para o PostgreSQL e a migração desses dados para o MongoDB.
 
 ## Estrutura do projeto
 
@@ -53,7 +53,7 @@ pip install -r requirements.txt
 
 O script irá:
 
-1. Ler o arquivo Excel e carregar os dados no PostgreSQL
+1. Ler o arquivo csv e carregar os dados no PostgreSQL
 
 2. Migrar os dados do PostgreSQL para o MongoDB
 
@@ -80,3 +80,13 @@ Você pode conectar ao MongoDB na porta definida no .env (default: 27017) usando
 - Python (pandas, SQLAlchemy, pymongo, dotenv)
 
 - Docker & Docker Compose
+
+## Visualização dos bancos de dados
+
+### PostgreSQL
+
+![Banco PostgreSQL criado](pics/banco_criado.png)
+
+### MongoDB
+
+![Banco MongoDB criado](pics/mongo_db_criado.png)
